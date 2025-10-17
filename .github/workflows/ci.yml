@@ -1,0 +1,25 @@
+name: Simple CI Workflow
+
+on:
+  push:
+    branches: [ main, feature-update ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify HTML, CSS, and JS presence
+        run: |
+          echo "Checking project files..."
+          ls -l
+          if [ -f "index.html" ] && [ -f "style.css" ] && [ -f "script.js" ]; then
+            echo "✅ All files found! Hello CI 🚀"
+          else
+            echo "❌ Missing one or more project files!" && exit 1
+          fi
